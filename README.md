@@ -1,6 +1,6 @@
 # quiz_app
 
-A new Flutter project.
+A simple personality quiz application.
 
 ## Getting Started
 
