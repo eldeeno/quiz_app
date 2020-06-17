@@ -14,21 +14,38 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State {
   int _questionIndex = 0;
+  int _totScore = 0;
   final _questions = const [
     {
       'questiontext': 'What\'s your favorite color?',
-      'answers': ['Black', 'Red', 'Blue', 'Green']
+      'answers': [
+        {'text': 'Black', 'score': 10},
+        {'text': 'Red', 'score': 5},
+        {'text': 'Blue', 'score': 3},
+        {'text': 'Green', 'score': 2}
+      ]
     },
     {
       'questiontext': 'What\'s your favorite animal?',
-      'answers': ['Dog', 'Cat', 'Horse', 'Camel']
+      'answers': [
+        {'text': 'Dog', 'score': 10},
+        {'text': 'Cat', 'score': 2},
+        {'text': 'Horse', 'score': 4},
+        {'text': 'Camel', 'score': 6}
+      ]
     },
     {
       'questiontext': 'What\'s your favorite car brand?',
-      'answers': ['Mercedes', 'BMW', 'Toyota', 'Bema']
+      'answers': [
+        {'text': 'Mercedes', 'score': 10},
+        {'text': 'BMW', 'score': 8},
+        {'text': 'Toyota', 'score': 3},
+        {'text': 'Bentley', 'score': 5}
+      ]
     },
   ];
-  void _answerQuestion() {
+  void _answerQuestion(int score) {
+    _totScore += score;
     setState(() {
       _questionIndex = _questionIndex + 1;
     });
@@ -44,8 +61,12 @@ class _MyAppState extends State {
         body: Container(
           padding: EdgeInsets.only(top: 10.0),
           child: _questionIndex < _questions.length
-              ? Quiz(answerQuestion: _answerQuestion, questionIndex: _questionIndex, questions: _questions,)
-              : Result(message: 'Welldone!',),
+              ? Quiz(
+                  answerQuestion: _answerQuestion,
+                  questionIndex: _questionIndex,
+                  questions: _questions,
+                )
+              : Result(_totScore),
         ),
       ),
     );
