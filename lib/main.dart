@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 // widgets import
-import './question.dart';
-import './answer.dart';
+import './quiz.dart';
+import './result.dart';
 
 void main() => runApp(MyApp());
 
@@ -29,9 +29,6 @@ class _MyAppState extends State {
     },
   ];
   void _answerQuestion() {
-    if (_questionIndex < _questions.length) {
-      print('we have more questions!');
-    }
     setState(() {
       _questionIndex = _questionIndex + 1;
     });
@@ -47,18 +44,8 @@ class _MyAppState extends State {
         body: Container(
           padding: EdgeInsets.only(top: 10.0),
           child: _questionIndex < _questions.length
-              ? Column(
-                  children: [
-                    Question(_questions[_questionIndex]['questiontext']),
-                    ...(_questions[_questionIndex]['answers'] as List<String>)
-                        .map((answer) {
-                      return Answer(_answerQuestion, answer);
-                    }).toList()
-                  ],
-                )
-              : Center(
-                  child: Text('You did it!'),
-                ),
+              ? Quiz(answerQuestion: _answerQuestion, questionIndex: _questionIndex, questions: _questions,)
+              : Result(message: 'Welldone!',),
         ),
       ),
     );
